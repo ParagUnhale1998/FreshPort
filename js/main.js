@@ -1,6 +1,15 @@
 (function ($) {
     "use strict";
-
+    
+     // spinner
+     $(document).ready(function() {
+        setTimeout(function() {
+            $('#spinner').removeClass('show');
+        }, 1000);
+    });
+    
+ 
+    
     // Smooth scrolling to section
     $(".btn-scroll").on('click', function (event) {
         if (this.hash !== "") {
