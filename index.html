@@ -169,7 +169,7 @@
                                     </div>
                                 </div>
                             </div>
- 
+
                             <div class="mb-4 text-center angular col-md-6 first portfolio-item">
                                 <h6>Advance TodoList</h6>
 
@@ -221,7 +221,7 @@
 
                                 </div>
                             </div>
-                            
+
                             <div class="mb-4 text-center angular col-md-6 first portfolio-item">
                                 <h6>Portfolio</h6>
 
@@ -808,6 +808,12 @@
                 <div class="px-3 row">
                     <div class="col-12">
                         <h2 class="position-relative mb-4 pb-2 title">Contact Me</h2>
+                        <div class="alert alert-success" style="display: none;" role="alert">
+                            Successfully Sent The Email!
+                        </div>
+                        <div class="alert alert-danger" style="display: none;" role="alert">
+                            Failed To Sent The Email!
+                        </div>
                     </div>
                     <div class="col-12">
                         <div class="contact-form">
@@ -836,7 +842,7 @@
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div>
-                                    <button class="px-4 py-3 btn btn-primary" onclick="sendMail();"
+                                    <button class="px-4 py-3 btn btn-primary" onclick="sendMail(event);"
                                         id="sendMessageButton">Send Message</button>
                                 </div>
                             </form>
@@ -915,7 +921,8 @@
     <!-- Send Mail By Service emailJs -->
     <script type="text/javascript">
 
-        function sendMail() {
+        function sendMail(event) {
+            event.preventDefault();
 
 
             (function () {
@@ -937,10 +944,32 @@
 
             emailjs.send(serviceID, templateID, params)
                 .then((res) => {
-                    alert("Email Sent Seccesfull!")
+                    // Show success alert
+                    var successAlert = document.querySelector('.alert-success');
+                    successAlert.style.display = 'block';
+                    // Hide error alert (if shown)
+                    document.querySelector('.alert-danger').style.display = 'none';
+                    // Reset form fields
                     resetForm();
+
+                    // Hide success alert after 5 seconds
+                    setTimeout(function () {
+                        successAlert.style.display = 'none';
+                    }, 5000);
                 })
-                .catch((err) => console.log(err))
+                .catch((err) => {
+                    // Show error alert
+                    var errorAlert = document.querySelector('.alert-danger');
+                    errorAlert.style.display = 'block';
+                    // Hide success alert (if shown)
+                    document.querySelector('.alert-success').style.display = 'none';
+                    console.log(err);
+
+                    // Hide error alert after 5 seconds
+                    setTimeout(function () {
+                        errorAlert.style.display = 'none';
+                    }, 5000);
+                })
         }
 
 
